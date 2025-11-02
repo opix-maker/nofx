@@ -528,7 +528,6 @@ func stringContains(s, substr string) bool {
 	return false
 }
 
-// [FIX CF-IMPL-01] ADDED: 实现 GetTradeHistory 方法
 // GetTradeHistory 获取指定币种在特定时间后的真实成交历史
 func (t *FuturesTrader) GetTradeHistory(symbol string, startTime int64) ([]Trade, error) {
 	log.Printf("🔄 正在从币安API获取 %s 的成交历史 (从 %s 开始)...", symbol, time.Unix(startTime/1000, 0).Format("2006-01-02 15:04:05"))
