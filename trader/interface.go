@@ -1,7 +1,22 @@
 package trader
 
-// Trader 交易器统一接口
-// 支持多个交易平台（币安、Hyperliquid等）
+// Trade 结构体，用于标准化表示一笔已成交的交易
+type Trade struct {
+	Symbol    string
+	ID        int64
+	OrderID   int64
+	Price     float64
+	Quantity  float64
+	Fee       float64
+	FeeAsset  string
+	Time      int64 // Unix apoch in milliseconds
+	IsBuyer   bool
+	IsMaker   bool
+	Side      string // "BUY" or "SELL"
+	IsReduce  bool   // 是否为只减仓
+}
+
+// Trader 交易接口
 type Trader interface {
 	// GetBalance 获取账户余额
 	GetBalance() (map[string]interface{}, error)
@@ -41,4 +56,7 @@ type Trader interface {
 
 	// FormatQuantity 格式化数量到正确的精度
 	FormatQuantity(symbol string, quantity float64) (string, error)
+
+	// GetTradeHistory 方法，用于获取交易所的真实成交历史
+	GetTradeHistory(symbol string, startTime int64) ([]Trade, error)
 }
